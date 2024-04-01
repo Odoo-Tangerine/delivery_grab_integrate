@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form_sale_with_grab" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.delivery.grab.sale</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='sale_shipping_setting_container']" position="inside">
+                <setting id="shipping_costs_grab" documentation="/applications/inventory_and_mrp/inventory/shipping/setup/third_party_shipper.html" help="Compute shipping costs and ship with Grab">
+                    <field name="module_delivery_grab" widget="upgrade_boolean"/>
+                    <div class="content-group">
+                        <div class="mt8" invisible="not module_delivery_grab">
+                            <button name="%(delivery.action_delivery_carrier_form)d" icon="oi-arrow-right" type="action" string="Grab Shipping Methods" class="btn-link" context="{'search_default_delivery_type': 'grab'}"/>
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_config_settings_view_form_stock_with_grab" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.delivery.grab.stock</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='shipping_connectors_setting_container']" position="inside">
+                <setting id="shipping_costs_grab" documentation="/applications/inventory_and_mrp/inventory/shipping/setup/third_party_shipper.html" help="Compute shipping costs and ship with Grab">
+                    <field name="module_delivery_grab" widget="upgrade_boolean"/>
+                    <div class="content-group">
+                        <div class="mt8" invisible="not module_delivery_grab">
+                            <button name="%(delivery.action_delivery_carrier_form)d"
+                                    icon="oi-arrow-right" type="action"
+                                    string="Grab Shipping Methods" class="btn-link"
+                                    context="{'search_default_delivery_type': 'grab'}"
+                            />
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="delivery_grab_res_config_settings_form_view" model="ir.ui.view">
+        <field name="name">delivery.grab.res.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="99"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Grab Express"
+                     data-string="Grab Express"
+                     name="tangerine_delivery_grab"
+                     groups="base.group_system"
+                >
+                    <block title="Automatically Workflow Delivery" name="automatic_workflow_delivery">
+                        <setting help="This configuration will help you automatically confirm your purchase order">
+                            <field name="grab_auto_confirm_po"/>
+                        </setting>
+                        <setting help="After automatically confirm your purchase order, this configuration will help you automatically create a billing">
+                            <field name="grab_auto_create_bill"/>
+                        </setting>
+                        <setting help="After creating a billing, this configuration will help you automatically confirm the billing">
+                            <field name="grab_auto_confirm_bill"/>
+                        </setting>
+                        <setting help="As a final step, this configuration will automatically register payment">
+                            <field name="grab_auto_register_payment"/>
+                        </setting>
+                    </block>
+
+                    <block title="Tracking Webhook" name="delivery_rules_setting_container">
+                        <setting help="This secret code is used to authenticate the API callback from Grab">
+                            <field name="grab_api_key"/>
+                            <div class="content-group">
+                                <button name="grab_generate_api_key"
+                                        type="object"
+                                        string="Generate API Key"
+                                        class="btn-link"
+                                        icon="oi-arrow-right"
+                                />
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_delivery_grab_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="delivery_grab_res_config_settings_form_view"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'tangerine_delivery_grab', 'bin_size': False}</field>
+    </record>
+</odoo>

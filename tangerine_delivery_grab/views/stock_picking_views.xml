@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_picking_withcarrier_out_form_inherit_delivery_grab" model="ir.ui.view">
+        <field name="name">view.picking.withcarrier.out.form.inherit.delivery.grab</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock_delivery.view_picking_withcarrier_out_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='tracking']" position="after">
+                <field name="grab_status_id"/>
+                <field name="grab_status_code" invisible="True"/>
+            </xpath>
+            <button name="cancel_shipment" position="before">
+                <button type="action"
+                        name="%(tangerine_delivery_grab.grab_delivery_order_action)d"
+                        class="oi oi-search oe_link"
+                        context="{'search_default_picking_id': id}"
+                        invisible="not carrier_tracking_ref or delivery_type in ['fixed', 'base_on_rule'] or not delivery_type or state != 'done' or delivery_type != 'grab'"
+                />
+            </button>
+            <xpath expr="//group[@name='carrier_data']" position="after">
+                <group name='grab_carrier_data'
+                       invisible="carrier_tracking_ref or delivery_type != 'grab'"
+                       string="Grab Shipping Information">
+                    <field name="grab_service_type"
+                           required="delivery_type == 'grab'"
+                           readonly="carrier_tracking_ref or delivery_type != 'grab'"
+                    />
+                    <field name="grab_payment_method" readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
+                    <field name="grab_cod_type" readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
+                    <field name="grab_payer" readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
+                    <field name="grab_high_value" widget="boolean_toggle"
+                           readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
+                    <field name="grab_cash_on_delivery" widget="boolean_toggle"
+                           readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
+                    <field name="grab_cash_on_delivery_amount"
+                           readonly="carrier_tracking_ref or delivery_type != 'grab'"
+                           invisible="not grab_cash_on_delivery"/>
+                    <field name="grab_promo_code_id" readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
+                    <field name="grab_schedule_order" widget="boolean_toggle"
+                           readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
+                    <field name="grab_schedule_pickup_time_from"
+                           invisible="not grab_schedule_order"
+                           required="grab_schedule_order"
+                           readonly="carrier_tracking_ref or delivery_type != 'grab'"
+                    />
+                    <field name="grab_schedule_pickup_time_to"
+                           invisible="not grab_schedule_order"
+                           required="grab_schedule_order"
+                           readonly="carrier_tracking_ref or delivery_type != 'grab'"
+                    />
+                </group>
+
+                <group name="grab_driver_data" string="Grab Driver Information"
+                       invisible="not grab_driver_name or delivery_type != 'grab'">
+                    <label for="grab_driver_name" string="Name" invisible="not grab_driver_name"/>
+                    <div class="o_row" invisible="not grab_driver_name">
+                        <field name="grab_driver_name"/>
+                        <field name="grab_driver_tips"
+                               invisible="grab_status_code != 'COMPLETED'"
+                               placeholder="100.00"/>
+                        <button name="grab_submit_tips_for_driver"
+                                invisible="grab_status_code != 'COMPLETED'"
+                                type="object"
+                                string="Tips"
+                                class="oi oi-arrow-right oe_link"
+                                confirm="Do you want to tip the driver?"
+                        />
+                    </div>
+                    <field name="grab_driver_license_plate" string="License Plate"
+                           invisible="not grab_driver_license_plate"/>
+                    <field name="grab_driver_phone" string="Phone" widget="phone"
+                           invisible="not grab_driver_license_plate"/>
+                    <field name="grab_driver_photo_url" string="Photo URL" widget="url"
+                           invisible="not grab_driver_photo_url"/>
+                    <label for="grab_driver_current_lat" string="Current Location"
+                           invisible="not grab_driver_current_lat"/>
+                    <div class="o_row" invisible="not grab_driver_current_lat">
+                        <field name="grab_driver_current_lat"/>
+                        <field name="grab_driver_current_lng"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

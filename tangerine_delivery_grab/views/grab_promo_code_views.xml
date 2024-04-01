@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="grab_promo_code_tree_view" model="ir.ui.view">
+        <field name="name">grab.promo.code.tree.view</field>
+        <field name="model">grab.promo.code</field>
+        <field name="arch" type="xml">
+            <tree string="Status" editable="top">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="is_out_of_date"/>
+                <field name="is_used"/>
+                <field name="is_available"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="grab_promo_code_search_view" model="ir.ui.view">
+        <field name="name">grab.promo.code.search.view</field>
+        <field name="model">grab.promo.code</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="is_out_of_date"/>
+                <field name="is_used"/>
+                <field name="is_available"/>
+           </search>
+        </field>
+    </record>
+
+    <record id="grab_promo_code_action" model="ir.actions.act_window">
+        <field name="name">Status</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">grab.promo.code</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('grab_promo_code_tree_view')})]"
+        />
+        <field name="search_view_id" ref="grab_promo_code_search_view"/>
+    </record>
+</odoo>

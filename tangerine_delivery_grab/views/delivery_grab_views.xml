@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_delivery_carrier_form_with_provider_grab_express" model="ir.ui.view">
+        <field name="name">delivery.carrier.form.provider.grab.express</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='destination']" position='before'>
+                <page string="Grab Express Configuration"
+                      name="grab_express_configuration"
+                      invisible="delivery_type != 'grab'"
+                >
+                    <group>
+                        <group>
+                            <label for="grab_host"/>
+                            <div class="o_row">
+                                <field name="grab_host"/>
+                                <button name="grab_action_test_connection"
+                                        string="Test Connection"
+                                        icon="fa-plug"
+                                        type="object"
+                                />
+                                <button name="grab_get_access_token"
+                                        string="Get Access Token"
+                                        icon="fa-refresh"
+                                        type="object"
+                                />
+                            </div>
+                            <field name="grab_partner_id" widget="CopyClipboardChar"/>
+                            <field name="grab_client_id" widget="CopyClipboardChar"/>
+                            <field name="grab_client_secret" widget="CopyClipboardChar"/>
+                        </group>
+                        <group>
+                            <field name="grab_expire_token_date"/>
+                            <field name="grab_access_token" widget="CopyClipboardChar"/>
+                            <field name="grab_grant_type"/>
+                            <field name="grab_scope"/>
+                            <field name="grab_token_type"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
