@@ -23,54 +23,30 @@ class Client:
             headers.update({'Authorization': f'{provider.grab_token_type} {provider.grab_access_token}'})
         return headers
 
-    def get_access_token(self, provider_id, route_id, payload: TokenRequest) -> TokenResponse:
-        return TokenResponse(**self.conn.execute_restful(
+    def _common_execute_restful(self, provider_id, route_id, payload, is_get_token_route=False):
+        return self.conn.execute_restful(
             url=URLBuilder.builder(
                 host=provider_id.grab_host,
                 routes=[route_id.route, route_id.sub_route]
             ),
-            headers=self._build_header(),
+            headers=self._build_header(provider=provider_id if not is_get_token_route else None),
             method=route_id.method,
             **payload.model_dump(exclude_none=True)
-        ))
+        )
+
+    def get_access_token(self, provider_id, route_id, payload: TokenRequest) -> TokenResponse:
+        return TokenResponse(**self._common_execute_restful(provider_id, route_id, payload, True))
 
     def get_delivery_quotes(self, provider_id, route_id, payload: DeliveryQuotesRequest) -> DeliveryQuotesResponse:
-        return DeliveryQuotesResponse(**self.conn.execute_restful(
-            url=URLBuilder.builder(
-                host=provider_id.grab_host,
-                routes=[route_id.route, route_id.sub_route]
-            ),
-            headers=self._build_header(provider=provider_id),
-            method=route_id.method,
-            **payload.model_dump(exclude_none=True)
-        ))
+        return DeliveryQuotesResponse(**self._common_execute_restful(provider_id, route_id, payload))
 
     def get_multi_stop_delivery_quotes(
-            self,
-            provider_id,
-            route_id,
-            payload: MultiStopDeliveryQuotesRequest
+            self, provider_id, route_id, payload: MultiStopDeliveryQuotesRequest
     ) -> MultiStopDeliveryQuotesResponse:
-        return MultiStopDeliveryQuotesResponse(**self.conn.execute_restful(
-            url=URLBuilder.builder(
-                host=provider_id.grab_host,
-                routes=[route_id.route, route_id.sub_route]
-            ),
-            headers=self._build_header(provider=provider_id),
-            method=route_id.method,
-            **payload.model_dump(exclude_none=True)
-        ))
+        return MultiStopDeliveryQuotesResponse(**self._common_execute_restful(provider_id, route_id, payload))
 
     def create_delivery_request(self, provider_id, route_id, payload: CreateDeliveryRequest) -> CreateDeliveryResponse:
-        return CreateDeliveryResponse(**self.conn.execute_restful(
-            url=URLBuilder.builder(
-                host=provider_id.grab_host,
-                routes=[route_id.route, route_id.sub_route]
-            ),
-            headers=self._build_header(provider=provider_id),
-            method=route_id.method,
-            **payload.model_dump(exclude_none=True)
-        ))
+        return CreateDeliveryResponse(**self._common_execute_restful(provider_id, route_id, payload))
 
     def cancel_delivery(self, provider_id, route_id, carrier_tracking_ref: str):
         self.conn.execute_restful(

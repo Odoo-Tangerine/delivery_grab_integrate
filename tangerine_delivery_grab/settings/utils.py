@@ -29,8 +29,8 @@ def generate_client_api(self, code):
     return route_id
 
 
-def datetime_to_rfc3339(dt):
-    dt = dt.astimezone(pytz.timezone('Asia/Ho_Chi_Minh'))
+def datetime_to_rfc3339(dt, time_zone):
+    dt = dt.astimezone(pytz.timezone(time_zone))
     return dt.isoformat()
 
 

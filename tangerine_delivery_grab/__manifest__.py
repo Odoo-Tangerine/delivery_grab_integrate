@@ -24,7 +24,6 @@
         'data/grab_status_data.xml',
         'data/res_partner_data.xml',
         'wizard/choose_delivery_carrier_wizard_views.xml',
-        'wizard/multi_add_shipping_wizard_views.xml',
         'views/delivery_grab_views.xml',
         'views/stock_picking_views.xml',
         'views/res_partner_views.xml',
@@ -33,7 +32,6 @@
         'views/grab_promo_code_views.xml',
         'views/grab_routes_api_views.xml',
         'views/grab_delivery_order_views.xml',
-        'views/sale_order_views.xml',
         'views/menus.xml'
     ],
     'images': ['static/description/thumbnail.png'],

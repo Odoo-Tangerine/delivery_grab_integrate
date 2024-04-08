@@ -141,8 +141,8 @@ class ProviderGrab(models.Model):
             raise UserError(_('The number phone of recipient is required.'))
         if picking.grab_promo_code_id and not picking.grab_payment_method:
             raise UserError(_('You are using a promo code, please select a payment method. This is required.'))
-        elif picking.grab_payer == 'RECIPIENT' and picking.grab_payment_method == 'CASHLESS':
-            raise UserError(_('Sending a RECIPIENT value for CASHLESS payments will result in an error.'))
+        # elif picking.grab_payer == 'RECIPIENT' and picking.grab_payment_method == 'CASHLESS':
+        #     raise UserError(_('Sending a RECIPIENT value for CASHLESS payments will result in an error.'))
         elif picking.grab_cash_on_delivery and picking.grab_cash_on_delivery_amount <= 0.0:
             raise UserError(_('The cash on delivery amount must be greater than 0.'))
         elif picking.grab_schedule_order and not picking.grab_schedule_pickup_time_from:
@@ -150,7 +150,7 @@ class ProviderGrab(models.Model):
         elif picking.grab_schedule_order and not picking.grab_schedule_pickup_time_to:
             raise UserError(_('You are using Scheduled for Order. Please select the pickup time to.'))
         elif picking.grab_schedule_order and (
-                picking.grab_schedule_pickup_time_from <= picking.grab_schedule_pickup_time_to
+                picking.grab_schedule_pickup_time_from >= picking.grab_schedule_pickup_time_to
         ):
             raise UserError(_('The delivery time in the future must be greater than the present time.'))
 
@@ -203,8 +203,13 @@ class ProviderGrab(models.Model):
         if picking.grab_schedule_order:
             payload.update({
                 'schedule': {
-                    'pickupTimeFrom': utils.datetime_to_rfc3339(picking.grab_schedule_pickup_time_from),
-                    'pickupTimeTo': utils.datetime_to_rfc3339(picking.grab_schedule_pickup_time_to)
+                    'pickupTimeFrom': utils.datetime_to_rfc3339(
+                        picking.grab_schedule_pickup_time_from, self.env.user.tz
+                    ),
+                    'pickupTimeTo': utils.datetime_to_rfc3339(
+                        picking.grab_schedule_pickup_time_to,
+                        self.env.user.tz
+                    )
                 }
             })
         return CreateDeliveryRequest(**payload)

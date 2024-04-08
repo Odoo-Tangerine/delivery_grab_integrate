@@ -6,7 +6,7 @@ class GrabDeliveryOrder(models.Model):
     _rec_name = 'delivery_id'
     _description = 'Grab Delivery Order'
 
-    picking_id = fields.Many2one('stock.picking')
+    picking_id = fields.Many2one('stock.picking', string='Delivery Order')
     status_id = fields.Many2one(related='picking_id.grab_status_id')
     delivery_id = fields.Char(related='picking_id.carrier_tracking_ref')
     shipping_cost = fields.Float(related='picking_id.carrier_price')

@@ -11,7 +11,6 @@ class ResConfigSettings(models.TransientModel):
     grab_auto_create_bill = fields.Boolean(string='Automatically Create Bill')
     grab_auto_confirm_bill = fields.Boolean(string='Automatically Confirm Bill')
     grab_auto_register_payment = fields.Boolean(string='Automatically Register Payment')
-    module_delivery_grab = fields.Boolean('Grab Connector')
 
     def grab_generate_api_key(self):
         ICPModel = self.env['ir.config_parameter'].sudo()
