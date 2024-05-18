@@ -23,7 +23,7 @@ class StockPicking(models.Model):
     grab_high_value = fields.Boolean(string='Order High Value', default=False)
     grab_cash_on_delivery = fields.Boolean(string='Order COD', default=False)
     grab_cash_on_delivery_amount = fields.Float(string='COD Money')
-    grab_promo_code_id = fields.Many2one('grab.promo.code', string='Promo Code')
+    grab_promo_code = fields.Char(string='Promo Code')
     grab_schedule_order = fields.Boolean(string='Scheduled for Order', default=False)
     grab_schedule_pickup_time_from = fields.Datetime(string='Pickup Time From')
     grab_schedule_pickup_time_to = fields.Datetime(string='Pickup Time To')
@@ -35,22 +35,6 @@ class StockPicking(models.Model):
     grab_driver_current_lng = fields.Char(string='Driver Current Lng', readonly=True)
     grab_status_id = fields.Many2one('grab.status', string='Delivery Status', readonly=True)
     grab_status_code = fields.Char(related='grab_status_id.code')
-    grab_driver_tips = fields.Float(string='Tips')
-
-    def grab_submit_tips_for_driver(self):
-        if self.grab_status_id.code != settings.status_completed:
-            raise UserError(_(f'You cannot tip the driver if the order has not been completed'))
-        client = Client(Connection(self))
-        route_id = utils.generate_client_api(self.carrier_id, settings.submit_tip_route_code)
-        client.submit_tip(
-            self.carrier_id,
-            route_id,
-            {'deliveryID': self.carrier_tracking_ref, 'amount': self.grab_driver_tips}
-        )
-        return utils.notification(
-            settings.notice_success_type,
-            f'Give driver {self.grab_driver_name} a tips {self.grab_driver_tips} successfully'
-        )
 
     def _create_purchase_order_for_delivery_cost(self):
         self.ensure_one()

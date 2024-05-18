@@ -35,7 +35,7 @@
                     <field name="grab_cash_on_delivery_amount"
                            readonly="carrier_tracking_ref or delivery_type != 'grab'"
                            invisible="not grab_cash_on_delivery"/>
-                    <field name="grab_promo_code_id" readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
+                    <field name="grab_promo_code" readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
                     <field name="grab_schedule_order" widget="boolean_toggle"
                            readonly="carrier_tracking_ref or delivery_type != 'grab'"/>
                     <field name="grab_schedule_pickup_time_from"
@@ -52,29 +52,12 @@
 
                 <group name="grab_driver_data" string="Grab Driver Information"
                        invisible="not grab_driver_name or delivery_type != 'grab'">
-                    <label for="grab_driver_name" string="Name" invisible="not grab_driver_name"/>
-                    <div class="o_row" invisible="not grab_driver_name">
-                        <field name="grab_driver_name"/>
-                        <field name="grab_driver_tips"
-                               invisible="grab_status_code != 'COMPLETED'"
-                               placeholder="100.00"/>
-                        <button name="grab_submit_tips_for_driver"
-                                invisible="grab_status_code != 'COMPLETED'"
-                                type="object"
-                                string="Tips"
-                                class="oi oi-arrow-right oe_link"
-                                confirm="Do you want to tip the driver?"
-                        />
-                    </div>
-                    <field name="grab_driver_license_plate" string="License Plate"
-                           invisible="not grab_driver_license_plate"/>
-                    <field name="grab_driver_phone" string="Phone" widget="phone"
-                           invisible="not grab_driver_license_plate"/>
-                    <field name="grab_driver_photo_url" string="Photo URL" widget="url"
-                           invisible="not grab_driver_photo_url"/>
-                    <label for="grab_driver_current_lat" string="Current Location"
-                           invisible="not grab_driver_current_lat"/>
-                    <div class="o_row" invisible="not grab_driver_current_lat">
+                    <field name="grab_driver_name"/>
+                    <field name="grab_driver_license_plate" string="License Plate"/>
+                    <field name="grab_driver_phone" string="Phone" widget="phone"/>
+                    <field name="grab_driver_photo_url" string="Photo URL" widget="url"/>
+                    <label for="grab_driver_current_lat" string="Current Location"/>
+                    <div class="o_row">
                         <field name="grab_driver_current_lat"/>
                         <field name="grab_driver_current_lng"/>
                     </div>

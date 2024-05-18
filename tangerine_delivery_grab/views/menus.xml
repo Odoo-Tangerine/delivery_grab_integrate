@@ -2,35 +2,29 @@
 <odoo>
     <menuitem  id="grab_express_config_menu"
         name="Grab Express"
-        parent="stock.menu_delivery"
+        parent="stock.menu_stock_config_settings"
+        groups="stock.group_stock_manager"
         sequence="99"
-    />
-
-    <menuitem id="grab_delivery_order_menu"
-        name="Delivery Order"
-        parent="grab_express_config_menu"
-        action="grab_delivery_order_action"
-        sequence="1"
     />
 
     <menuitem id="grab_status_menu"
         name="Status"
         parent="grab_express_config_menu"
         action="grab_status_action"
-        sequence="5"
-    />
-
-    <menuitem id="grab_promo_code_menu"
-        name="Promo Code"
-        parent="grab_express_config_menu"
-        action="grab_promo_code_action"
-        sequence="10"
+        sequence="1"
     />
 
     <menuitem id="grab_routes_api_menu"
         name="Routes API"
         parent="grab_express_config_menu"
         action="grab_routes_api_action"
-        sequence="15"
+        sequence="5"
+    />
+
+    <menuitem id="grab_delivery_order_menu"
+        name="Delivery Orders"
+        parent="grab_express_config_menu"
+        action="grab_delivery_order_action"
+        sequence="10"
     />
 </odoo>

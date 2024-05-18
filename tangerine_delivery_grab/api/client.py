@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
-from typing import Any
 from dataclasses import dataclass
 from .connection import Connection
 from ..settings.utils import URLBuilder
-from ..settings.status import status
 from ..schemas.grab_schemas import (
     TokenRequest, TokenResponse,
     DeliveryQuotesRequest, DeliveryQuotesResponse,
     CreateDeliveryRequest, CreateDeliveryResponse,
-    MultiStopDeliveryQuotesRequest, MultiStopDeliveryQuotesResponse
 )
 
 
@@ -40,11 +37,6 @@ class Client:
     def get_delivery_quotes(self, provider_id, route_id, payload: DeliveryQuotesRequest) -> DeliveryQuotesResponse:
         return DeliveryQuotesResponse(**self._common_execute_restful(provider_id, route_id, payload))
 
-    def get_multi_stop_delivery_quotes(
-            self, provider_id, route_id, payload: MultiStopDeliveryQuotesRequest
-    ) -> MultiStopDeliveryQuotesResponse:
-        return MultiStopDeliveryQuotesResponse(**self._common_execute_restful(provider_id, route_id, payload))
-
     def create_delivery_request(self, provider_id, route_id, payload: CreateDeliveryRequest) -> CreateDeliveryResponse:
         return CreateDeliveryResponse(**self._common_execute_restful(provider_id, route_id, payload))
 
@@ -57,14 +49,3 @@ class Client:
             headers=self._build_header(provider=provider_id),
             method=route_id.method
         )
-
-    def submit_tip(self, provider_id, route_id, payload: dict[str, Any]):
-        return CreateDeliveryResponse(**self.conn.execute_restful(
-            url=URLBuilder.builder(
-                host=provider_id.grab_host,
-                routes=[route_id.route, route_id.sub_route]
-            ),
-            headers=self._build_header(provider=provider_id),
-            method=route_id.method,
-            **payload
-        ))

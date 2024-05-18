@@ -131,16 +131,3 @@ class TrackingWebhookRequest(BaseModel):
     trackURL: str | HttpUrl | None = None
     failedReason: str | None = None
     driver: Driver | None = None
-
-
-class MultiStopDeliveryQuotesRequest(BaseModel):
-    serviceType: str = 'MULTI_STOP'
-    vehicleType: str = settings.default_vehicle_type
-    codType: str = settings.default_cod_type
-    origin: list[Location]
-    destination: list[DestinationMultiStop]
-    routeOptimized: bool = True
-
-
-class MultiStopDeliveryQuotesResponse(BaseModel):
-    quotes: list[QuoteMultiStop]

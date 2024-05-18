@@ -12,11 +12,8 @@ class settings(BaseSettings):
     tracking_url: Final[str] = 'https://partner-api.grab.com/tracking'
     oauth_route_code: Final[str] = 'oauth_route'
     get_quotes_route_code: Final[str] = 'get_delivery_quotes'
-    get_multi_quotes_route_code: Final[str] = 'get_multi_stop_delivery_quotes'
     create_request_route_code: Final[str] = 'create_delivery_request'
-    create_multi_request_route_code: Final[str] = 'create_multi_stop_delivery_request'
-    cancel_request_route_code: Final[str] = 'grab_cancel_delivery'
-    submit_tip_route_code: Final[str] = 'submit_tip'
+    cancel_request_route_code: Final[str] = 'cancel_delivery'
 
     notice_success_type: Final[str] = 'success'
     notice_danger_type: Final[str] = 'danger'

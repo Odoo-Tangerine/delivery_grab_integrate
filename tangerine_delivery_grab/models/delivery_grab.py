@@ -139,7 +139,7 @@ class ProviderGrab(models.Model):
     def _validate_picking(picking):
         if not picking.partner_id.phone and not picking.partner_id.mobile:
             raise UserError(_('The number phone of recipient is required.'))
-        if picking.grab_promo_code_id and not picking.grab_payment_method:
+        if picking.grab_promo_code and not picking.grab_payment_method:
             raise UserError(_('You are using a promo code, please select a payment method. This is required.'))
         # elif picking.grab_payer == 'RECIPIENT' and picking.grab_payment_method == 'CASHLESS':
         #     raise UserError(_('Sending a RECIPIENT value for CASHLESS payments will result in an error.'))

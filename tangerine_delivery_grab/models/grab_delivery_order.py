@@ -17,7 +17,7 @@ class GrabDeliveryOrder(models.Model):
     payer = fields.Selection(related='picking_id.grab_payer')
     high_value = fields.Boolean(related='picking_id.grab_high_value')
     cod_amount = fields.Float(related='picking_id.grab_cash_on_delivery_amount')
-    promo_code_id = fields.Many2one(related='picking_id.grab_promo_code_id')
+    promo_code = fields.Char(related='picking_id.grab_promo_code')
     schedule_pickup_time_from = fields.Datetime(related='picking_id.grab_schedule_pickup_time_from')
     schedule_pickup_time_to = fields.Datetime(related='picking_id.grab_schedule_pickup_time_to')
     driver_name = fields.Char(related='picking_id.grab_driver_name', string='Name')
@@ -26,4 +26,3 @@ class GrabDeliveryOrder(models.Model):
     driver_photo_url = fields.Char(related='picking_id.grab_driver_photo_url', string='Photo URL')
     driver_current_lat = fields.Char(related='picking_id.grab_driver_current_lat', string='Current Lat')
     driver_current_lng = fields.Char(related='picking_id.grab_driver_current_lng', string='Current Lng')
-    driver_tips = fields.Float(related='picking_id.grab_driver_tips', string='Tips Amount')

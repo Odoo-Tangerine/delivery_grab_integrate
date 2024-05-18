@@ -1,5 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_grab_routes_api,access_grab_routes_api,model_grab_routes_api,,1,1,1,1
-access_grab_promo_code,access_grab_promo_code,model_grab_promo_code,,1,1,1,1
 access_grab_status,access_grab_status,model_grab_status,,1,1,1,1
 access_grab_delivery_order,access_grab_delivery_order,model_grab_delivery_order,,1,1,1,1

@@ -15,7 +15,8 @@ _logger = logging.getLogger(__name__)
 class Connection:
     external_models: models
 
-    def execute_restful(self, url: str, method: str, headers: dict[str, Any], **kwargs):
+    @staticmethod
+    def execute_restful(url: str, method: str, headers: dict[str, Any], **kwargs):
         try:
             _logger.info(f'Execute API: {method}: {url}')
             if method == 'POST':

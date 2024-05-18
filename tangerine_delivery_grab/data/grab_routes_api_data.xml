@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
+    <data noupdate="1">
         <record id="authentication_route" model="grab.routes.api">
             <field name="provider_id" ref="tangerine_delivery_grab.tangerine_delivery_grab_provider" />
             <field name="name">Authentication</field>
@@ -34,41 +34,11 @@
         <record id="cancel_delivery_request_route" model="grab.routes.api">
             <field name="provider_id" ref="tangerine_delivery_grab.tangerine_delivery_grab_provider" />
             <field name="name">Cancel Delivery</field>
-            <field name="code">grab_cancel_delivery</field>
+            <field name="code">cancel_delivery</field>
             <field name="route">/grab-express-sandbox</field>
             <field name="sub_route">/v1/deliveries</field>
             <field name="method">DELETE</field>
             <field name="description">Allows partner to cancel a delivery request.</field>
-        </record>
-
-        <record id="submit_tip_request_route" model="grab.routes.api">
-            <field name="provider_id" ref="tangerine_delivery_grab.tangerine_delivery_grab_provider" />
-            <field name="name">Submit Tip</field>
-            <field name="code">submit_tip</field>
-            <field name="route">/grab-express-sandbox</field>
-            <field name="sub_route">/v1/deliveries/tip/submit</field>
-            <field name="method">POST</field>
-            <field name="description">The Submit Tip API allows partner to tip a delivery request.</field>
-        </record>
-
-        <record id="get_multi_quotes_route_code" model="grab.routes.api">
-            <field name="provider_id" ref="tangerine_delivery_grab.tangerine_delivery_grab_provider" />
-            <field name="name">Get Multi Stop Delivery Quotes</field>
-            <field name="code">get_multi_stop_delivery_quotes</field>
-            <field name="route">/grabfood-sandbox</field>
-            <field name="sub_route">/partner/express/v1/deliveries/quotes</field>
-            <field name="method">POST</field>
-            <field name="description">GrabExpress’s multi-stop delivery (MSD) is an effective tool that helps API partners batch multiple deliveries into the same trip.</field>
-        </record>
-
-        <record id="create_multi_stop_delivery_request" model="grab.routes.api">
-            <field name="provider_id" ref="tangerine_delivery_grab.tangerine_delivery_grab_provider" />
-            <field name="name">Create Multi Stop Delivery Request</field>
-            <field name="code">create_multi_stop_delivery_request</field>
-            <field name="route">/grabfood-sandbox</field>
-            <field name="sub_route">/partner/express/v1/deliveries</field>
-            <field name="method">POST</field>
-            <field name="description">GrabExpress’s multi-stop delivery (MSD) is an effective tool that helps API partners to batch multiple deliveries into the same trip.</field>
         </record>
     </data>
 </odoo>
