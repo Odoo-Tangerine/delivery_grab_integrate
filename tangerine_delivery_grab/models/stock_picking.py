@@ -6,7 +6,7 @@ from odoo.exceptions import UserError
 from ..settings.constants import settings
 from ..api.client import Client
 from ..api.connection import Connection
-from ..settings import utils
+from odoo.addons.tangerine_delivery_base.settings import utils
 
 
 class StockPicking(models.Model):
@@ -21,20 +21,8 @@ class StockPicking(models.Model):
     grab_payer = fields.Selection(selection=settings.payer, string='Payer', default=settings.default_payer)
     grab_cod_type = fields.Selection(selection=settings.cod_type, string='COD Type', default=settings.default_cod_type)
     grab_high_value = fields.Boolean(string='Order High Value', default=False)
-    grab_cash_on_delivery = fields.Boolean(string='Order COD', default=False)
-    grab_cash_on_delivery_amount = fields.Float(string='COD Money')
-    grab_promo_code = fields.Char(string='Promo Code')
-    grab_schedule_order = fields.Boolean(string='Scheduled for Order', default=False)
-    grab_schedule_pickup_time_from = fields.Datetime(string='Pickup Time From')
-    grab_schedule_pickup_time_to = fields.Datetime(string='Pickup Time To')
-    grab_driver_name = fields.Char(string='Driver Name', readonly=True)
     grab_driver_license_plate = fields.Char(string='Driver License Plate', readonly=True)
-    grab_driver_phone = fields.Char(string='Driver Phone', readonly=True)
     grab_driver_photo_url = fields.Char(string='Driver Photo Url', readonly=True)
-    grab_driver_current_lat = fields.Char(string='Driver Current Lat', readonly=True)
-    grab_driver_current_lng = fields.Char(string='Driver Current Lng', readonly=True)
-    grab_status_id = fields.Many2one('grab.status', string='Delivery Status', readonly=True)
-    grab_status_code = fields.Char(related='grab_status_id.code')
 
     def _create_purchase_order_for_delivery_cost(self):
         self.ensure_one()
@@ -123,6 +111,6 @@ class StockPicking(models.Model):
         except Exception as e:
             if self.carrier_tracking_ref and self.carrier_id.delivery_type == settings.grab_code:
                 client = Client(Connection(self))
-                route_id = utils.generate_client_api(self.carrier_id, settings.cancel_request_route_code)
+                route_id = utils.get_route_api(self.carrier_id, settings.cancel_request_route_code)
                 client.cancel_delivery(self.carrier_id, route_id, self.carrier_tracking_ref)
             raise UserError(ustr(e))

@@ -21,7 +21,7 @@
             <field name="delivery_type">grab</field>
             <field name="grab_grant_type">client_credentials</field>
             <field name="grab_scope">grab_express.partner_deliveries</field>
-            <field name="grab_host">https://partner-api.grab.com</field>
+            <field name="domain">https://partner-api.grab.com</field>
             <field name="product_id" ref="tangerine_delivery_grab.product_product_delivery_grab"/>
             <field name="carrier_description">GrabExpress APIs will allow shipper to easily place, cancel, get quotes and track the order via simple integration</field>
         </record>

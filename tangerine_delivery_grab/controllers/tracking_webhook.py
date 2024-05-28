@@ -3,7 +3,7 @@ from typing import Any
 from odoo import SUPERUSER_ID
 from odoo.tools import ustr
 from odoo.http import request, Controller, route
-from ..settings.status import status
+from odoo.addons.tangerine_delivery_base.settings.status import status
 from ..schemas.grab_schemas import TrackingWebhookRequest
 
 
@@ -57,7 +57,7 @@ class DeliveriesController(Controller):
                     status=status.HTTP_400_BAD_REQUEST,
                     message=f'The status {body.status} does not match my system.'
                 )
-            payload = {'grab_status_id': status_id.id}
+            payload = {'status_id': status_id.id}
             if body.driver:
                 payload.update({
                     'grab_driver_name': body.driver.name,

@@ -15,10 +15,6 @@ class settings(BaseSettings):
     create_request_route_code: Final[str] = 'create_delivery_request'
     cancel_request_route_code: Final[str] = 'cancel_delivery'
 
-    notice_success_type: Final[str] = 'success'
-    notice_danger_type: Final[str] = 'danger'
-    notice_warning_type: Final[str] = 'warning'
-
     service_type: Final[list[tuple[str, str]]] = [
         ('INSTANT', 'Instant'),
         ('SAME_DAY', 'Same Day'),

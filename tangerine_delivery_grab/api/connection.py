@@ -6,19 +6,19 @@ from typing import Any
 from odoo import models, _
 from odoo.exceptions import UserError
 from odoo.tools import ustr
-from ..settings.status import status
+from odoo.addons.tangerine_delivery_base.settings.status import status
 
 _logger = logging.getLogger(__name__)
 
 
 @dataclass
 class Connection:
-    external_models: models
+    provider: models
 
     @staticmethod
     def execute_restful(url: str, method: str, headers: dict[str, Any], **kwargs):
         try:
-            _logger.info(f'Execute API: {method}: {url}')
+            _logger.info(f'Execute API: {method}: {url} - {headers} - {kwargs}')
             if method == 'POST':
                 response = requests.post(url=url, headers=headers, json=kwargs)
             elif method == 'GET':

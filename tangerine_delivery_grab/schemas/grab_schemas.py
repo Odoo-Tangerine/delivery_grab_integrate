@@ -1,5 +1,5 @@
-from pydantic import BaseModel, HttpUrl
-from ..settings.constants import settings
+from pydantic import BaseModel, HttpUrl, field_validator
+from odoo.addons.tangerine_delivery_base.settings.utils import standardization_e164
 
 
 class TokenRequest(BaseModel):
@@ -44,18 +44,16 @@ class Location(BaseModel):
     coordinates: Coordinates | None | dict = {}
 
 
-class Recipient(BaseModel):
+class Contact(BaseModel):
     firstName: str
     email: str | bool | None = None
     phone: str
     smsEnabled: bool = False
 
-
-class Sender(BaseModel):
-    firstName: str
-    email: str | bool | None = None
-    phone: str
-    smsEnabled: bool = False
+    @field_validator('phone')
+    @classmethod
+    def validate_phone(cls, v):
+        return standardization_e164(v)
 
 
 class Schedule(BaseModel):
@@ -113,8 +111,8 @@ class CreateDeliveryRequest(BaseModel):
     packages: list[Package]
     origin: Location
     destination: Location
-    recipient: Recipient
-    sender: Sender
+    recipient: Contact
+    sender: Contact
     schedule: Schedule | None = None
 
 
