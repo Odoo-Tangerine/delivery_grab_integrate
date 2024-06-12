@@ -2,7 +2,6 @@
 import requests
 import logging
 from dataclasses import dataclass
-from typing import Any
 from odoo import models, _
 from odoo.exceptions import UserError
 from odoo.tools import ustr
@@ -16,7 +15,7 @@ class Connection:
     provider: models
 
     @staticmethod
-    def execute_restful(url: str, method: str, headers: dict[str, Any], **kwargs):
+    def execute_restful(url, method, headers, **kwargs):
         try:
             _logger.info(f'Execute API: {method}: {url} - {headers} - {kwargs}')
             if method == 'POST':
@@ -30,9 +29,9 @@ class Connection:
             else:
                 raise UserError(_(f'The Grab Express not support method: {method}'))
             response.raise_for_status()
-            if response.status_code not in [status.HTTP_200_OK, status.HTTP_204_NO_CONTENT]:
+            if response.status_code not in [status.HTTP_200_OK.value, status.HTTP_204_NO_CONTENT.value]:
                 raise UserError(response.text)
-            if response.status_code == status.HTTP_204_NO_CONTENT:
+            if response.status_code == status.HTTP_204_NO_CONTENT.value:
                 return True
             result = response.json()
             return result

@@ -1,1 +1,1 @@
-from . import models, controllers, wizard, api, settings, schemas
+from . import models, controllers, wizard, api, settings

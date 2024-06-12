@@ -16,7 +16,6 @@
         'wizard/choose_delivery_carrier_wizard_views.xml',
         'views/delivery_grab_views.xml',
         'views/stock_picking_views.xml',
-        'views/res_config_settings_views.xml',
     ],
     'images': ['static/description/thumbnail.png'],
     'license': 'OPL-1',
@@ -24,5 +23,5 @@
     'auto_install': False,
     'application': True,
     'currency': 'USD',
-    'price': 68.00
+    'price': 128.00
 }

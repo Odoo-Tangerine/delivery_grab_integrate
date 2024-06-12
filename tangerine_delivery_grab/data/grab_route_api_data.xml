@@ -18,6 +18,7 @@
             <field name="route">/grab-express-sandbox/v1/deliveries/quotes</field>
             <field name="method">POST</field>
             <field name="headers">'{"Cache-Control": "no-cache", "Content-Type": "application/json"}'</field>
+            <field name="is_need_access_token" eval="True"/>
             <field name="description">Get Delivery Quotes before you place an order.</field>
         </record>
 
@@ -28,6 +29,7 @@
             <field name="route">/grab-express-sandbox/v1/deliveries</field>
             <field name="method">POST</field>
             <field name="headers">'{"Cache-Control": "no-cache", "Content-Type": "application/json"}'</field>
+            <field name="is_need_access_token" eval="True"/>
             <field name="description">Once you get the quotes, use this API to place a booking request.</field>
         </record>
 
@@ -38,6 +40,7 @@
             <field name="route">/grab-express-sandbox/v1/deliveries</field>
             <field name="method">DELETE</field>
             <field name="headers">'{"Cache-Control": "no-cache", "Content-Type": "application/json"}'</field>
+            <field name="is_need_access_token" eval="True"/>
             <field name="description">Allows partner to cancel a delivery request.</field>
         </record>
     </data>
