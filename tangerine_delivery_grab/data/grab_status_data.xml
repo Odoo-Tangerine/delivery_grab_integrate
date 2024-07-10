@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
+    <data noupdate="1">
         <record id="grab_status_queueing" model="delivery.status">
             <field name="provider_id" ref="tangerine_delivery_grab.tangerine_delivery_grab_provider" />
             <field name="name">Queueing</field>

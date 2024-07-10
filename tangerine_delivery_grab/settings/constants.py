@@ -5,7 +5,7 @@ from typing import Final
 
 class settings(Enum):
     domain: Final[str] = 'https://partner-api.grab.com'
-    code: Final[str] = 'grab'
+    grab_code: Final[str] = 'grab'
     staging_route: Final[str] = 'grab-express-sandbox'
     production_route: Final[str] = 'grab-express'
 

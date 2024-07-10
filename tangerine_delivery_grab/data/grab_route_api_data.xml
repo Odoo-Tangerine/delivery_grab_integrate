@@ -43,5 +43,16 @@
             <field name="is_need_access_token" eval="True"/>
             <field name="description">Allows partner to cancel a delivery request.</field>
         </record>
+
+        <record id="get_detail_delivery_request_route" model="delivery.route.api">
+            <field name="provider_id" ref="tangerine_delivery_grab.tangerine_delivery_grab_provider" />
+            <field name="name">Get Detail Delivery</field>
+            <field name="code">get_detail_delivery</field>
+            <field name="route">/grab-express-sandbox/v1/deliveries</field>
+            <field name="method">GET</field>
+            <field name="headers">'{"Cache-Control": "no-cache", "Content-Type": "application/json"}'</field>
+            <field name="is_need_access_token" eval="True"/>
+            <field name="description">Partner can call this API anytime after the delivery has been created. i.e. Create Delivery API request was successful.</field>
+        </record>
     </data>
 </odoo>

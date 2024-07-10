@@ -17,11 +17,12 @@ class StockPicking(models.Model):
     grab_high_value = fields.Boolean(string='Order High Value', default=False)
     grab_driver_license_plate = fields.Char(string='Driver License Plate', readonly=True)
     grab_driver_photo_url = fields.Char(string='Driver Photo Url', readonly=True)
+    grab_tracking_link = fields.Char(string='Grab Tracking Link')
 
     @api.onchange('carrier_id')
     def _onchange_grab_provider(self):
         for rec in self:
-            if rec.carrier_id and rec.carrier_id.delivery_type == settings.code.value:
+            if rec.carrier_id and rec.carrier_id.delivery_type == settings.grab_code.value:
                 rec.grab_service_type = rec.carrier_id.default_grab_service_type
                 rec.grab_vehicle_type = rec.carrier_id.default_grab_vehicle_type
                 rec.grab_payment_method = rec.carrier_id.default_grab_payment_method
